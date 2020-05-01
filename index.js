@@ -29,7 +29,7 @@ client.on('message', msg => {
             if (boss[day][hour] != null && min == '55') {msg.channel.send(`Вскоре восстанет ${boss[day][hour]}! Поспешите, братья и сестры`);}
         }
 
-        setInterval(intervalFunc, 60000);
+        setInterval(intervalFunc, 30000);
     }
 });
 client.on('message', msg => {
