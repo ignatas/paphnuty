@@ -15,26 +15,40 @@ client.on('ready', () => {
 });
 //команда, и то, что она должна выполнить
 client.on('message', msg => {
-    if (msg.content === prefix + 'Пафнутий') {
+    if (msg.content.toLowerCase() === prefix + 'пафнутий приди!') {
         msg.reply('Внемлю твоему зову');
+        function intervalFunc() {
+
+            let now = new Date(Date.now());
+            let day = now.getDay();
+            let hour = now.getHours() + 1;
+            let min = now.getMinutes() +1;
+            if (hour == '24') { day = day + 1; hour = '0' }
+            if (day == '7') { day = '0' }
+            if (boss[day][hour] != null && min == '45') {msg.channel.send(`Вскоре восстанет ${boss[day][hour]}! Готовьтесь`);}
+            if (boss[day][hour] != null && min == '55') {msg.channel.send(`Вскоре восстанет ${boss[day][hour]}! Поспешите, братья и сестры`);}
+        }
+
+        setInterval(intervalFunc, 60000);
     }
 });
 client.on('message', msg => {
-    if (msg.content === 'ping') {
+    if (msg.content.toLowerCase() === 'ping') {
         msg.reply('Не гневи небо');
     }
 });
 client.on('message', msg => {
-    if (msg.content === prefix + 'босс') {
+    if (msg.content.toLowerCase() === prefix + 'босс') {
         let now = new Date(Date.now());
-        let day = now.getDay();        
+        let day = now.getDay();
         let hour = now.getHours() + 1;
         if (hour == '24') { day = day + 1; hour = '0' }
         if (day == '7') { day = '0' }
-        console.log(day)
-        console.log(hour)
-        msg.reply(`Вскоре восстанет ${boss[day][hour]}! К оружию, браться и сестры`);
+        if (boss[day][hour] != null) {msg.reply(`Вскоре восстанет ${boss[day][hour]}! К оружию, братья и сестры`);}
+        else {msg.reply('В сей час не восстанет никто, мир тебе, добрая душа');}
     }
 });
+
+
 
 client.login(token);
